@@ -23,5 +23,11 @@ public :
 }
 	void Create(uint32_t classID);
 
+	template<typename T>
+	T saveClass(const T& myClass)
+	{
+		//todo: enregistrer myClass dans le registre
+	}
+
 };
 #endif // CLASSREGISTRY_H
