@@ -5,7 +5,6 @@
 #include <optional>
 #include "networkObject.h"
 
-
 class LinkingContext
 {
 public:
