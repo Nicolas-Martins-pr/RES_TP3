@@ -1,13 +1,16 @@
 #ifndef CLASSREGISTRY_H
 #define CLASSREGISTRY_H
 #include <cstdint>
+#include <functional>
+#include <map>
+#include "networkObject.h"
 
 class ClassRegistry
 {
 private :
 	static ClassRegistry* singleton;
 	ClassRegistry();
-	//std::map<uint32_t, >
+	std::map<uint32_t, std::function<NetworkObject()>> registre;
 
 public :
 	ClassRegistry(const ClassRegistry&) = delete; //empêche le constructeur par copie
@@ -21,12 +24,12 @@ public :
 	return singleton;
 
 }
-	void Create(uint32_t classID);
+	NetworkObject Create(uint32_t classID);
 
 	template<typename T>
-	T saveClass(const T& myClass)
+	void saveClass(const T& myClass)
 	{
-		//todo: enregistrer myClass dans le registre
+		registre.insert(std::pair<uint32_t, std::function<NetworkObject()>>(T::mClassID, myClass()));
 	}
 
 };

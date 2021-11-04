@@ -11,3 +11,8 @@ void NetworkObject::read()
 void NetworkObject::destroy()
 {
 }
+
+NetworkObject::NetworkObject()
+{
+	
+}
