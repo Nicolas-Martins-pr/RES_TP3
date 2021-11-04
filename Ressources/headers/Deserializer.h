@@ -1,7 +1,7 @@
 #ifndef RES_TP2_DESERIALIZER_H
 #define RES_TP2_DESERIALIZER_H
 
-
+#include "asio.hpp"
 #include <vector>
 
 class Deserializer {
