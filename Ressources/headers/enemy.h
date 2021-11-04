@@ -1,3 +1,6 @@
+#ifndef ENEMY_H
+#define ENEMY_H
+
 #include "NetworkObject.h"
 
 class Enemy : public NetworkObject
@@ -19,3 +22,4 @@ private :
 	int healthMax = 1000;
 	int healthMin = 0;
 };
+#endif // ENEMY_H

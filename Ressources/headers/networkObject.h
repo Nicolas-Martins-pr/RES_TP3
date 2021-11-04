@@ -1,3 +1,7 @@
+#ifndef NETWORKOBJECT_H
+#define NETWORKOBJECT_H
+
+
 #include "Framework.h"
 
 class NetworkObject
@@ -9,3 +13,5 @@ public:
 
 private:
 };
+
+#endif // NETWORKOBJECT_H

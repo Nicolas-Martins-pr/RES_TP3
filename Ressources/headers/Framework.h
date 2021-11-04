@@ -1,3 +1,6 @@
+#ifndef FRAMEWORK_H
+#define FRAMEWORK_H
+
 #include <cstdint>
 #include <iostream>
 #include <algorithm>
@@ -78,3 +81,4 @@ void SwapEndian(T &val)
 	std::reverse_copy(src.raw.begin(), src.raw.end(), dst.raw.begin());
 	val = dst.val;
 }
+#endif // FRAMEWORK_H
