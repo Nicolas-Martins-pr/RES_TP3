@@ -2,7 +2,13 @@
 
 ClassRegistry* ClassRegistry::singleton = nullptr;
 
-void ClassRegistry::Create(uint32_t classID)
+ClassRegistry::ClassRegistry()
 {
+}
+
+NetworkObject ClassRegistry::Create(uint32_t classID)
+{
+	std::function<NetworkObject()> classConstruct = registre.at(classID);
+	return classConstruct();
 
 }

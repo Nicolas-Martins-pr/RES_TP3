@@ -4,13 +4,15 @@
 #define ASIO_STANDALONE
 
 #include <iostream>
-#include <asio.hpp>
-#include <asio/ts/buffer.hpp>
-#include <asio/ts/internet.hpp>
+//#include <asio.hpp>
+//#include <asio/ts/buffer.hpp>
+//#include <asio/ts/internet.hpp>
+#include "ClassRegistry.h"
 
 
 int main()
 {
 	std::cout << "WESH" << std::endl;
+
 	return 0;
 }
