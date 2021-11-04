@@ -18,6 +18,10 @@ Player::Player()
 }
 
 void Player::write(Serializer* ser) {
+
+	//We send the class ID
+	ser->Serialize<int>(static_cast<int>(this->ClassID),sizeof static_cast<int>(this->ClassID));
+
 	position.write(ser);
 	taille.write(ser);
 	rotation.write(ser);

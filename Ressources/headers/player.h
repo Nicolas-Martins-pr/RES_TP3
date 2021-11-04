@@ -1,6 +1,4 @@
-#ifndef RES_TP3_PLAYER_H
-#define RES_TP3_PLAYER_H
-
+#pragma once
 #include "NetworkObject.h"
 
 class Player : public NetworkObject {
@@ -48,6 +46,3 @@ private:
 
 	enum {ClassID = 0};
 };
-
-
-#endif //RES_TP3_PLAYER_H

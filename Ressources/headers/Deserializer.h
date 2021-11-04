@@ -1,7 +1,6 @@
-#ifndef RES_TP2_DESERIALIZER_H
-#define RES_TP2_DESERIALIZER_H
 
 
+#pragma once
 #include <vector>
 
 class Deserializer {
@@ -25,5 +24,3 @@ private:
 };
 
 
-
-#endif //RES_TP2_DESERIALIZER_H

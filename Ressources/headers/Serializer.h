@@ -1,5 +1,4 @@
-#ifndef RES_TP2_SERIALIZER_H
-#define RES_TP2_SERIALIZER_H
+#pragma once
 #include <vector>
 
 class Serializer {
@@ -21,11 +20,8 @@ public:
 		position += size;
 	}
 
-    const std::vector<char> GetContainer(){return container;}
+    std::vector<char> GetContainer() const {return container;}
 private:
 	std::vector<char> container;
 	int position;
 };
-
-
-#endif //RES_TP2_SERIALIZER_H

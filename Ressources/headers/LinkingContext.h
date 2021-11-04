@@ -1,6 +1,4 @@
-#ifndef LINKINGCONTEXT_H
-#define LINKINGCONTEXT_H
-
+#pragma once
 #include <map>
 #include <optional>
 #include "networkObject.h"
@@ -15,11 +13,12 @@ public:
 	void AddGOPointer(NetworkObject* networkObj);
 	std::optional<int> GetIdFromGOPointer(NetworkObject* networkObj);
 	std::optional<NetworkObject*> GetGOPointerFromID(int id);
+	std::map<NetworkObject*, int> GetGOPointerToIDMap() {
+		return GOPointerToIDMap;};
 
 private:
 
-	std::map<NetworkObject*, int> GOPointertoIDMap;
+	std::map<NetworkObject*, int> GOPointerToIDMap;
 	std::map<int, NetworkObject*> IDToGOPointerMap;
 
 };
-#endif // LINKINGCONTEXT_H

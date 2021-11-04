@@ -1,5 +1,5 @@
-#ifndef CLASSREGISTRY_H
-#define CLASSREGISTRY_H
+
+#pragma once
 #include <cstdint>
 #include <functional>
 #include <map>
@@ -33,4 +33,3 @@ public :
 	}
 
 };
-#endif // CLASSREGISTRY_H
