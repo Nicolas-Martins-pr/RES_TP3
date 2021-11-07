@@ -17,6 +17,7 @@ std::shared_ptr<ReplicationManager> replicationManager;
 
 bool g_stop = false;
 int countMsgReceive = 0;
+int countClient = 0;
 
 std::condition_variable cv;
 std::mutex cv_m;
@@ -29,8 +30,14 @@ int Server()
 	config.OnConnect = [](uqac::network::ConnectionWeakPtr connection) {
 		std::cout << "SERVER OnConnect" << std::endl;;
 		replicationManager->Create(Player::ClassID);
+		countClient++;
 
 	};
+
+	if (countClient == 2)
+	{
+		replicationManager->Create(Enemy::ClassID);
+	}
 
 	config.OnReceive = [](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
 
