@@ -88,8 +88,6 @@ int main(int argc, char* argv[])
 	ClassRegistry::get()->saveClass<Player>();
 	ClassRegistry::get()->saveClass<Enemy>();
 
-	//LINKINGCONTEXT ..
-
 	network = std::make_shared<uqac::network::UQACNetwork>();
 	std::thread server(Server);
 

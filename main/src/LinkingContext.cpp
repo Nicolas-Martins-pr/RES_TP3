@@ -1,5 +1,6 @@
 #include "../headers/LinkingContext.h"
 
+
 LinkingContext::LinkingContext()
 {
 
@@ -24,12 +25,12 @@ void LinkingContext::DeletePointer(NetworkObject* networkObj)
 void LinkingContext::AddGOPointer(NetworkObject* networkObj)
 {
 	int randomNetworkID = rand();
-
-	//TODO Check if working
-	while (IDToGOPointerMap.at(randomNetworkID))
+	
+	while (IDToGOPointerMap.count(randomNetworkID) != 0)
 	{
 		randomNetworkID = rand();
 	}
+	
 	GOPointerToIDMap.insert(std::pair<NetworkObject*, int>(networkObj, randomNetworkID));
 	IDToGOPointerMap.insert(std::pair<int, NetworkObject*>(randomNetworkID, networkObj));
 }
