@@ -10,7 +10,7 @@ class ClassRegistry
 private :
 	static ClassRegistry* singleton;
 	ClassRegistry();
-	std::map<uint32_t, std::function<NetworkObject()>> registre;
+	std::map<uint32_t, std::function<NetworkObject*()>> registre;
 
 public :
 	ClassRegistry(const ClassRegistry&) = delete; //empêche le constructeur par copie
@@ -24,12 +24,12 @@ public :
 	return singleton;
 
 }
-	NetworkObject Create(uint32_t classID);
+	NetworkObject * Create(uint32_t classID);
 
 	template<class T>
 	void saveClass()
 	{
-		registre.insert(std::pair<uint32_t, std::function<NetworkObject()>>(T::ClassID, T()));
+		registre.insert(std::pair<uint32_t, std::function<NetworkObject* ()>>(T::ClassID, T::Create));
 	}
 
 };

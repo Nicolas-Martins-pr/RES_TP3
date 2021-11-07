@@ -145,3 +145,8 @@ void Player::SetName(char* newName)
 
 
 }
+
+NetworkObject* Player::Create()
+{
+	return new Player();
+}

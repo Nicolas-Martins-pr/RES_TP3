@@ -7,16 +7,22 @@ class Enemy : public NetworkObject
 
 	public :
 
+		Enemy();
+
 		enum { ClassID = 1 };
+
+		static NetworkObject * Create();
+
+		void SetHealth(int newHealth);
 
 	private :
 
 		Vector3<float> pos;
-		enum Type
+		enum type
 		{
 			Boss,
 			Sbire
-		};
+		} enemyType;
 
 		Quaternion rot;
 		int health;

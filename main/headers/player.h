@@ -28,6 +28,7 @@ public:
 	void SetMoney(float newMoney);
 	void SetName(char* newName);
 
+	static NetworkObject* Create();
 
 	enum { ClassID = 0 };
 

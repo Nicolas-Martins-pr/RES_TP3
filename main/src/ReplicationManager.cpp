@@ -27,7 +27,7 @@ void ReplicationManager::Update()
 
 void ReplicationManager::Create(uint32_t id)
 {
-	NetworkObject obj = ClassRegistry::get()->Create(id);
-	cont->AddGOPointer(&obj);
+	NetworkObject * obj = ClassRegistry::get()->Create(id);
+	cont->AddGOPointer(obj);
 
 }
