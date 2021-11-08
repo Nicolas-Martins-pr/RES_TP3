@@ -25,6 +25,7 @@ public :
 
 }
 	NetworkObject * Create(uint32_t classID);
+	std::map<uint32_t, std::function<NetworkObject* ()>> GetRegistre() { return registre; };
 
 	template<class T>
 	void saveClass()

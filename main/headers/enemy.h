@@ -11,12 +11,16 @@ class Enemy : public NetworkObject
 
 		enum { ClassID = 2 };
 
+		int GetClassID() override { return ClassID; };
+
 		static NetworkObject * Create();
 
 		void write(Serializer* ser) override;
 		void read(Deserializer* des) override;
 
 		void SetHealth(int newHealth);
+
+		void UpdateValues() override;
 
 	private :
 

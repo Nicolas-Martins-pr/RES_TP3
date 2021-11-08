@@ -32,6 +32,10 @@ public:
 
 	enum { ClassID = 1 };
 
+	int GetClassID() override  { return ClassID; };
+
+	void UpdateValues() override;
+
 private:
 	Vector3<float> position;
 	Vector3<float> taille;

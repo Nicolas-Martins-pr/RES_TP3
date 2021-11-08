@@ -17,10 +17,14 @@ Player::Player()
 {
 	name = new char[129];
 	Vector3<float> defaultPosition;
-	defaultPosition.vx, defaultPosition.vy, defaultPosition.vz = 0;
+	defaultPosition.vx = 0.0;
+	defaultPosition.vy = 0.0;
+	defaultPosition.vz = 0.0;
 	SetPosition(defaultPosition);
 	Vector3<float> defaultTaille;
-	defaultTaille.vx, defaultTaille.vy, defaultTaille.vz = 1;
+	defaultTaille.vx = 1.0;
+	defaultTaille.vy = 1.0;
+	defaultTaille.vz = 1.0;
 	SetTaille(defaultTaille);
 	Quaternion defaultRotation;
 	defaultRotation.val_w = 0.194;
@@ -31,7 +35,7 @@ Player::Player()
 	SetHealth(150);
 	SetArmor(25);
 	SetMoney(0);
-	SetName("DEFAULTNAME");
+	SetName("Patrick");
 }
 
 void Player::write(Serializer* ser) {
@@ -60,6 +64,7 @@ void Player::read(Deserializer* des)
 
 void Player::printInfos()
 {
+
 	std::cout << "Informations sur le joueur " << name << std::endl;
 	std::cout << "Position : " << position.vx << "/" << position.vy << "/" << position.vz << std::endl;
 	std::cout << "Taille : " << taille.vx << "/" << taille.vy << "/" << taille.vz << std::endl;
@@ -148,4 +153,29 @@ void Player::SetName(char* newName)
 NetworkObject* Player::Create()
 {
 	return new Player();
+}
+
+void Player::UpdateValues()
+{
+	name = new char[129];
+	Vector3<float> newPosition;
+	newPosition.vx = 200.0;
+	newPosition.vy = 100.0;
+	newPosition.vz = 50.0;
+	SetPosition(newPosition);
+	Vector3<float> newTaille;
+	newTaille.vx = 1.5;
+	newTaille.vy = 1.5;
+	newTaille.vz = 1.5;
+	SetTaille(newTaille);
+	Quaternion newRotation;
+	newRotation.val_w = 0.310;
+	newRotation.val_x = -0.003;
+	newRotation.val_y = -0.310;
+	newRotation.val_z = -0.931;
+	SetRotation(newRotation);
+	SetHealth(50);
+	SetArmor(0);
+	SetMoney(15000);
+	SetName("Jack");
 }

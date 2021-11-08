@@ -15,6 +15,7 @@ using namespace std::chrono_literals;
 std::shared_ptr<uqac::network::UQACNetwork> network;
 std::shared_ptr<ReplicationManager> replicationManager;
 
+bool updateVals = false;
 bool g_stop = false;
 int countMsgReceive = 0;
 int countClientConnected = 0;
@@ -26,12 +27,31 @@ std::mutex cv_m;
 
 static constexpr char endpoint[] = "tcp//127.0.0.1:42666";
 
+
+void UpdatePlayersAndEnemyValues()
+{
+
+
+	std::cout << "Press enter to update players and enemy values (not randomly) : ";
+	std::cin.ignore();
+
+	for (auto object : replicationManager->GetLinkingContext()->GetGOPointerToIDMap())
+	{
+		object.first->UpdateValues();
+		
+		std::cout << object.first->ClassID << std::endl;
+	}
+
+	replicationManager->Update(clientsPtr);
+
+}
+
 int Server()
 {
 
 	uqac::network::Config config;
 	config.OnConnect = [](uqac::network::ConnectionWeakPtr connection) {
-		std::cout << "A client is connecting : a new player is created" << std::endl;;
+		std::cout << "A client is connecting : a new player is created" << std::endl;
 		replicationManager->Create(Player::ClassID);
 		clientsPtr.push_back(connection);
 		countClientConnected++;
@@ -39,7 +59,7 @@ int Server()
 		if (countClientConnected == 2)
 		{
 			replicationManager->Create(Enemy::ClassID);
-			std::cout << "Two players are connected : a new enemy is created" << std::endl;;
+			std::cout << "Two players are connected : a new enemy is created" << std::endl;
 
 			replicationManager->Update(clientsPtr);
 		}
@@ -75,20 +95,24 @@ int Client(int id)
 	uqac::network::Config config;
 
 	config.OnReceive = [id](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
-		std::cout << "Client "<<id<<" receives data" << std::endl;
+
+		std::cout << "------------------------------------------------------------------------------" << std::endl;
+		std::cout << "Client "<<id<<" receives data : " << std::endl;
 		//On décode les données du serveur
 		replicationManager->Decode(buffer, size);
+		std::cout << "------------------------------------------------------------------------------" << std::endl;
 		countMsgReceive++;
 	};
 
 	auto connection = network->Connect(endpoint, config);
 	if (auto c = connection.lock()) {
-		auto msg = " Hello world ! from client " + std::to_string(id);
+		auto msg = " Hi I'm the player  " + std::to_string(id);
 		c->Send(msg.data(), msg.length());
 
 	}
 	return 0;
 }
+
 
 
 

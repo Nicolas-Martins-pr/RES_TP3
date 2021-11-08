@@ -15,6 +15,7 @@ public :
 	void Decode(const char* buff, size_t size);
 	void Create(uint32_t id);
 	[[nodiscard]] std::unordered_set<NetworkObject*> GetPointObject()const { return alreadyReplicatedObjects; };
+	[[nodiscard]] LinkingContext * GetLinkingContext ()const { return cont; };
 private:
 
 	int paquetID = 0;
