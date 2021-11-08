@@ -45,6 +45,11 @@ int Server()
 
 	};
 
+	if (countClient == 2)
+	{
+		replicationManager->Create(Enemy::ClassID);
+	}
+
 	config.OnReceive = [](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
 
 		if (auto c = connection.lock()) {
@@ -81,7 +86,7 @@ int Client(int id)
 	};
 
 	auto connection = network->Connect(endpoint, config);
-	if (auto c = connection.lock()) { 
+	if (auto c = connection.lock()) {
 		auto msg = "Hello world ! from " + std::to_string(id);
 		c->Send(msg.data(), msg.length());
 
@@ -110,7 +115,7 @@ int main(int argc, char* argv[])
 	network = std::make_shared<uqac::network::UQACNetwork>();
 	std::thread server(Server);
 
-	
+
 	std::unique_lock<std::mutex> lk(cv_m);
 	cv.wait(lk);
 
