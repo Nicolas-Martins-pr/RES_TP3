@@ -13,7 +13,7 @@ void ReplicationManager::Update()
 
 	Serializer* ser = new Serializer();
 
-	//serialiser identifiants de protocole (tcp==1) et de paquet
+	//serialiser identifiants de protocole (toujours tcp==1) et de paquet
 	ser->Serialize<int>(1, sizeof(int));
 	ser->Serialize<int>(paquetID, sizeof(paquetID));
 
@@ -22,9 +22,11 @@ void ReplicationManager::Update()
 		//serialiser objet (identifiant de classe compris dans la fonction du player)
 	for (std::pair<NetworkObject*, int> networkObj : cont->GetGOPointerToIDMap())
 	{
-		ser->Serialize(networkObj.second, sizeof(networkObj.second));
+		ser->Serialize<int>(networkObj.second, sizeof(networkObj.second));
 		networkObj.first->write(ser);
 	}
+
+
 
 	//update le unordered_set
 	//paquet counter

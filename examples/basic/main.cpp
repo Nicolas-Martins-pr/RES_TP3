@@ -45,11 +45,6 @@ int Server()
 
 	};
 
-	if (countClient == 2)
-	{
-		replicationManager->Create(Enemy::ClassID);
-	}
-
 	config.OnReceive = [](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
 
 		if (auto c = connection.lock()) {
