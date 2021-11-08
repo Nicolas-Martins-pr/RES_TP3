@@ -11,11 +11,9 @@
 
 ## Fonctionnalités non terminées
 
-* Update aléatoire des valeurs des Players et du Enemy
-* Réplication des objets : implémentés dans le ReplicationManager, mais non testable à cause d'un unique problème de déserialisation d'une variable (ReplicationManager.cpp, ligne 56)
+* Update aléatoire des valeurs des Players et du Enemy (fonction implémentée (main.cpp) mais non utilisée et non aléatoire)
+* Réplication des objets : implémentés dans le ReplicationManager, mais non testable avec nouvelles valeurs pour raison si dessus.
 * Déserialisation des données du client : pareil qu'au dessus. (ReplicationManager.cpp)
-* Visualisation textuelle des méthodes Read  : pareil qu'au dessus. (Player.cpp et Enemy.cpp, methodes Read())
-
 
 ## Membres du groupe
 
