@@ -13,6 +13,8 @@
 
 * Update aléatoire des valeurs des Players et du Enemy
 * Réplication des objets : implémentés dans le ReplicationManager, mais non testable à cause d'un unique problème de déserialisation d'une variable (ReplicationManager.cpp, ligne 56)
+* Déserialisation des données du client : pareil qu'au dessus. (ReplicationManager.cpp)
+* Visualisation textuelle des méthodes Read  : pareil qu'au dessus. (Player.cpp et Enemy.cpp, methodes Read())
 
 
 ## Membres du groupe
