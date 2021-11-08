@@ -33,15 +33,16 @@ int Server()
 	config.OnConnect = [](uqac::network::ConnectionWeakPtr connection) {
 		std::cout << "A client is connecting : a new player is created" << std::endl;;
 		replicationManager->Create(Player::ClassID);
+		clientsPtr.push_back(connection);
 		countClientConnected++;
+
 		if (countClientConnected == 2)
 		{
 			replicationManager->Create(Enemy::ClassID);
 			std::cout << "Two players are connected : a new enemy is created" << std::endl;;
 
-			replicationManager->Update();
+			replicationManager->Update(clientsPtr);
 		}
-		clientsPtr.push_back(connection);
 
 	};
 
@@ -74,15 +75,15 @@ int Client(int id)
 	uqac::network::Config config;
 
 	config.OnReceive = [id](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
-		std::cout << "Client "<<id<<" receive : ";
-		std::cout.write(buffer, size);
-		std::cout << std::endl;
+		std::cout << "Client "<<id<<" receives data" << std::endl;
+		//On décode les données du serveur
+		replicationManager->Decode(buffer, size);
 		countMsgReceive++;
 	};
 
 	auto connection = network->Connect(endpoint, config);
 	if (auto c = connection.lock()) {
-		auto msg = "Hello world ! from " + std::to_string(id);
+		auto msg = " Hello world ! from client " + std::to_string(id);
 		c->Send(msg.data(), msg.length());
 
 	}
@@ -102,6 +103,7 @@ void Update()
 
 int main(int argc, char* argv[])
 {
+
 	replicationManager = std::make_shared<ReplicationManager>();
 	ClassRegistry::get()->saveClass<Player>();
 	ClassRegistry::get()->saveClass<Enemy>();

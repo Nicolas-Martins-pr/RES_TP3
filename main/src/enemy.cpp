@@ -22,8 +22,6 @@ NetworkObject* Enemy::Create()
 
 void Enemy::write(Serializer* ser)
 {
-	//We send the class ID
-	ser->Serialize<int>(static_cast<int>(this->ClassID), sizeof static_cast<int>(this->ClassID));
 	pos.write(ser);
 	rot.write(ser);
 	ser->Serialize<type>(enemyType, sizeof(enemyType));
@@ -36,6 +34,12 @@ void Enemy::read(Deserializer* des)
 	rot.read(des);
 	enemyType = des->Read<type>();
 	health = des->Read<int>();
+
+	std::cout << "Informations sur l'ennemi " << std::endl;
+	std::cout << "Position : " << pos.vx << "/" << pos.vy << "/" << pos.vz << std::endl;
+	std::cout << "Rotation : " << rot.val_w << "/" << rot.val_x << "/" << rot.val_y << "/" << rot.val_z << std::endl;
+	std::cout << "Type : " << enemyType << std::endl;
+	std::cout << "Vie : " << health << std::endl;
 }
 
 

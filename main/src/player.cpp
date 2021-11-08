@@ -35,9 +35,7 @@ Player::Player()
 }
 
 void Player::write(Serializer* ser) {
-
-	//We send the class ID
-	ser->Serialize<int>(static_cast<int>(this->ClassID),sizeof static_cast<int>(this->ClassID));
+	
 	position.write(ser);
 	taille.write(ser);
 	rotation.write(ser);
@@ -56,6 +54,8 @@ void Player::read(Deserializer* des)
 	armor = des->Read<int>();
 	money = des->Read<float>();
 	name = des->Read<char*>();
+
+	printInfos();
 }
 
 void Player::printInfos()
