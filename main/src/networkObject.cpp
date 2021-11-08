@@ -1,12 +1,5 @@
-#include "../headers/NetworkObject.h"
+#include "../headers/networkObject.h"
 
-void NetworkObject::write()
-{
-}
-
-void NetworkObject::read()
-{
-}
 
 void NetworkObject::destroy()
 {

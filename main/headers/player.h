@@ -7,8 +7,8 @@ public:
 	Player(Vector3<float> position, Vector3<float> taille, struct Quaternion rotation, int hp, int armor, float money, char* playerName);
 	Player();
 
-	void write(Serializer* ser);
-	void read(Deserializer* des);
+	void write(Serializer* ser) override;
+	void read(Deserializer* des) override;
 
 	void printInfos();
 
@@ -30,7 +30,7 @@ public:
 
 	static NetworkObject* Create();
 
-	enum { ClassID = 0 };
+	enum { ClassID = 1 };
 
 private:
 	Vector3<float> position;

@@ -9,9 +9,12 @@ class Enemy : public NetworkObject
 
 		Enemy();
 
-		enum { ClassID = 1 };
+		enum { ClassID = 2 };
 
 		static NetworkObject * Create();
+
+		void write(Serializer* ser) override;
+		void read(Deserializer* des) override;
 
 		void SetHealth(int newHealth);
 

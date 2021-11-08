@@ -20,6 +20,24 @@ NetworkObject* Enemy::Create()
 	return new Enemy();
 }
 
+void Enemy::write(Serializer* ser)
+{
+	//We send the class ID
+	ser->Serialize<int>(static_cast<int>(this->ClassID), sizeof static_cast<int>(this->ClassID));
+	pos.write(ser);
+	rot.write(ser);
+	ser->Serialize<type>(enemyType, sizeof(enemyType));
+	ser->Serialize<int>(health, sizeof(health));
+}
+
+void Enemy::read(Deserializer* des)
+{
+	pos.read(des);
+	rot.read(des);
+	enemyType = des->Read<type>();
+	health = des->Read<int>();
+}
+
 
 void Enemy::SetHealth(int newHealth)
 {

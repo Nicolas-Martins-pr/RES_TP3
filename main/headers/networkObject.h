@@ -1,17 +1,17 @@
-
-
 #pragma once
 #include "Framework.h"
 
 class NetworkObject
 {
 public:
-	virtual void write();
-	virtual void read();
+	virtual ~NetworkObject() = default;
+	virtual void write(Serializer* ser) = 0;
+	virtual void read(Deserializer* ser) = 0;
 	virtual void destroy();
 	NetworkObject();
 
 private:
+
 };
 
 

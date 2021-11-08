@@ -15,6 +15,7 @@ public :
 	[[nodiscard]] std::unordered_set<NetworkObject*> GetPointObject()const { return pointObject; };
 private:
 
+	int paquetID = 0;
 	std::unordered_set<NetworkObject*> pointObject;
 	LinkingContext *cont;
 

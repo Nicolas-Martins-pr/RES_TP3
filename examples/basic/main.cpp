@@ -17,6 +17,9 @@ std::shared_ptr<ReplicationManager> replicationManager;
 
 bool g_stop = false;
 int countMsgReceive = 0;
+int countClientConnected = 0;
+
+std::vector<uqac::network::ConnectionWeakPtr> clientsPtr;
 
 std::condition_variable cv;
 std::mutex cv_m;
@@ -25,20 +28,35 @@ static constexpr char endpoint[] = "tcp//127.0.0.1:42666";
 
 int Server()
 {
+
 	uqac::network::Config config;
 	config.OnConnect = [](uqac::network::ConnectionWeakPtr connection) {
-		std::cout << "SERVER OnConnect" << std::endl;;
+		std::cout << "A client is connecting : a new player is created" << std::endl;;
 		replicationManager->Create(Player::ClassID);
+		countClientConnected++;
+		if (countClientConnected == 2)
+		{
+			replicationManager->Create(Enemy::ClassID);
+			std::cout << "Two players are connected : a new enemy is created" << std::endl;;
+
+			replicationManager->Update();
+		}
+		clientsPtr.push_back(connection);
 
 	};
 
 	config.OnReceive = [](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
 
 		if (auto c = connection.lock()) {
-			std::cout << "SERVER RECEIVE : ";
+			std::cout << "Server receiving : ";
 			std::cout.write(buffer, size);
 			std::cout << std::endl;
-			c->Send(buffer, size);
+			//Send the message to all clients except the one we receive the message from
+			for (auto clientPtr : clientsPtr) {
+				auto clientConnection = clientPtr.lock();
+				if (clientConnection != c)
+					clientConnection->Send(buffer, size);
+			}
 		}
 	};
 
@@ -56,7 +74,7 @@ int Client(int id)
 	uqac::network::Config config;
 
 	config.OnReceive = [id](uqac::network::ConnectionWeakPtr connection, char* buffer, size_t size) {
-		std::cout << "CLIENT "<<id<<" RECEIVE : ";
+		std::cout << "Client "<<id<<" receive : ";
 		std::cout.write(buffer, size);
 		std::cout << std::endl;
 		countMsgReceive++;
@@ -64,7 +82,7 @@ int Client(int id)
 
 	auto connection = network->Connect(endpoint, config);
 	if (auto c = connection.lock()) { 
-		auto msg = "HELLO WORLD ! FROM " + std::to_string(id);
+		auto msg = "Hello world ! from " + std::to_string(id);
 		c->Send(msg.data(), msg.length());
 
 	}
@@ -87,6 +105,7 @@ int main(int argc, char* argv[])
 	replicationManager = std::make_shared<ReplicationManager>();
 	ClassRegistry::get()->saveClass<Player>();
 	ClassRegistry::get()->saveClass<Enemy>();
+
 
 	network = std::make_shared<uqac::network::UQACNetwork>();
 	std::thread server(Server);
